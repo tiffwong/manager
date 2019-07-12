@@ -47,16 +47,11 @@ import NodeBalancerConfigurations from './NodeBalancerConfigurations';
 import NodeBalancerSettings from './NodeBalancerSettings';
 import NodeBalancerSummary from './NodeBalancerSummary';
 
-type ClassNames = 'root' | 'titleWrapper' | 'backButton';
+type ClassNames = 'root' | 'backButton';
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {},
-    titleWrapper: {
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: 5
-    },
     backButton: {
       margin: '5px 0 0 -16px',
       '& svg': {
@@ -265,9 +260,9 @@ class NodeBalancerDetail extends React.Component<CombinedProps, State> {
       Boolean(matchPath(this.props.location.pathname, { path: pathName }));
     const {
       match: { path, url },
-      classes,
       error,
-      loading
+      loading,
+      location
     } = this.props;
     const { nodeBalancer } = this.state;
 
@@ -303,17 +298,27 @@ class NodeBalancerDetail extends React.Component<CombinedProps, State> {
       updateTags: this.updateTags
     };
 
+    const findTabIndex = this.tabs.findIndex(tab =>
+      any(matches)(tab.routeNames)
+    );
+
     return (
       <NodeBalancerProvider value={p}>
         <React.Fragment>
           <Grid container justify="space-between">
-            <Grid item className={classes.titleWrapper}>
+            <Grid item>
               <Breadcrumb
-                linkTo="/nodebalancers"
-                linkText="NodeBalancers"
-                labelTitle={nodeBalancerLabel}
+                pathname={location.pathname}
                 labelOptions={{ linkTo: this.getLabelLink() }}
+                crumbOverrides={[
+                  {
+                    position: 1,
+                    label: 'NodeBalancers'
+                  }
+                ]}
+                removeCrumbX={2}
                 onEditHandlers={{
+                  editableTextTitle: nodeBalancerLabel,
                   onEdit: this.updateLabel,
                   onCancel: this.cancelUpdate,
                   errorText: apiErrorText
@@ -323,7 +328,7 @@ class NodeBalancerDetail extends React.Component<CombinedProps, State> {
           </Grid>
           <AppBar position="static" color="default">
             <Tabs
-              value={this.tabs.findIndex(tab => any(matches)(tab.routeNames))}
+              value={findTabIndex === -1 ? 0 : findTabIndex}
               onChange={this.handleTabChange}
               indicatorColor="primary"
               textColor="primary"
@@ -373,6 +378,7 @@ class NodeBalancerDetail extends React.Component<CombinedProps, State> {
               render={() => (
                 <NodeBalancerConfigurations
                   nodeBalancerLabel={nodeBalancer.label}
+                  nodeBalancerRegion={nodeBalancer.region}
                 />
               )}
             />
@@ -381,6 +387,7 @@ class NodeBalancerDetail extends React.Component<CombinedProps, State> {
               render={() => (
                 <NodeBalancerConfigurations
                   nodeBalancerLabel={nodeBalancer.label}
+                  nodeBalancerRegion={nodeBalancer.region}
                 />
               )}
             />

@@ -45,6 +45,7 @@ const styles = (theme: Theme) => {
       }
     },
     root: {
+      position: 'relative',
       marginBottom: theme.spacing(2),
       padding: '4px 16px',
       maxWidth: '100%',
@@ -64,7 +65,7 @@ const styles = (theme: Theme) => {
     icon: {
       color: 'white',
       position: 'absolute',
-      left: theme.spacing(1) + 7
+      left: -25
     },
     closeIcon: {
       paddingLeft: theme.spacing(1)
@@ -80,7 +81,7 @@ const styles = (theme: Theme) => {
     noticeText: {
       color: theme.palette.text.primary,
       fontSize: '1rem',
-      lineHeight: `${theme.spacing(2.5)}px`,
+      lineHeight: `20px`,
       fontFamily: 'LatoWebBold', // we keep this bold at all times
       '& p': {
         fontSize: '1rem'

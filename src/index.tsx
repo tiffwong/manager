@@ -13,17 +13,15 @@ import { initAnalytics, initTagManager } from 'src/analytics';
 import AuthenticationWrapper from 'src/components/AuthenticationWrapper';
 import DefaultLoader from 'src/components/DefaultLoader';
 import SnackBar from 'src/components/SnackBar';
-import { GA_ID, GTM_ID, isProduction } from 'src/constants';
+import { GA_ID, GA_ID_2, GTM_ID, isProduction } from 'src/constants';
 import 'src/exceptionReporting';
 import LoginAsCustomerCallback from 'src/layouts/LoginAsCustomerCallback';
 import Logout from 'src/layouts/Logout';
 import OAuthCallbackPage from 'src/layouts/OAuth';
 import store from 'src/store';
 import 'src/utilities/createImageBitmap';
-import { sendCurrentThemeSettingsEvent } from 'src/utilities/ga';
 import 'src/utilities/request';
 import isPathOneOf from 'src/utilities/routing/isPathOneOf';
-import { spacing as spacingChoice, theme } from 'src/utilities/storage';
 import App from './App';
 import './events';
 import './index.css';
@@ -36,14 +34,17 @@ const Lish = DefaultLoader({
 /*
  * Initialize Analytic and Google Tag Manager
  */
-initAnalytics(GA_ID, isProduction);
+initAnalytics(
+  isProduction,
+  {
+    id: GA_ID
+  },
+  {
+    id: GA_ID_2,
+    name: 'linodecom'
+  }
+);
 initTagManager(GTM_ID);
-
-const themeChoice = theme.get() === 'dark' ? 'Dark Theme' : 'Light Theme';
-const spacingMode =
-  spacingChoice.get() === 'compact' ? 'Compact Mode' : 'Normal Mode';
-
-sendCurrentThemeSettingsEvent(`${themeChoice} | ${spacingMode}`);
 
 /**
  * Send pageviews unless blacklisted.

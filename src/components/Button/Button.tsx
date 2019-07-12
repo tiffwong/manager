@@ -16,6 +16,7 @@ type ClassNames =
   | 'loading'
   | 'destructive'
   | 'compact'
+  | 'superCompact'
   | 'hidden'
   | 'reg';
 
@@ -26,6 +27,7 @@ export interface Props extends ButtonProps {
   className?: string;
   tooltipText?: string;
   compact?: boolean;
+  superCompact?: boolean;
 }
 
 const styles = (theme: Theme) =>
@@ -63,7 +65,7 @@ const styles = (theme: Theme) =>
       '& svg': {
         position: 'absolute',
         left: 0,
-        top: 0,
+        top: -3,
         right: 0,
         bottom: 0,
         margin: '0 auto',
@@ -104,6 +106,12 @@ const styles = (theme: Theme) =>
       paddingLeft: theme.spacing(2) - 2,
       paddingRight: theme.spacing(2) - 2
     },
+    superCompact: {
+      paddingLeft: 0,
+      paddingRight: 0,
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1)
+    },
     hidden: {
       visibility: 'hidden'
     },
@@ -142,6 +150,7 @@ const wrappedButton: React.StatelessComponent<CombinedProps> = props => {
     tooltipText,
     buttonType,
     compact,
+    superCompact,
     className,
     ...rest
   } = props;
@@ -161,6 +170,7 @@ const wrappedButton: React.StatelessComponent<CombinedProps> = props => {
             loading,
             [classes.destructive]: destructive,
             [classes.compact]: compact,
+            [classes.superCompact]: superCompact,
             disabled: props.disabled
           },
           className

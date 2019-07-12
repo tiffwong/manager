@@ -1,4 +1,4 @@
-import { pathOr } from 'ramda';
+import { path, pathOr } from 'ramda';
 import * as React from 'react';
 import { connect, MapDispatchToProps } from 'react-redux';
 import { compose } from 'recompose';
@@ -138,8 +138,8 @@ const mapStateToProps: MapState<StateProps, {}> = (state, ownProps) => {
     ),
     userTimezone: pathOr('', ['data', 'timezone'], state.__resources.profile),
     userTimezoneLoading: state.__resources.profile.loading,
-    userTimezoneError: state.__resources.profile.error,
     linodesLoading,
+    userTimezoneError: path(['read'], state.__resources.profile.error),
     someLinodesHaveScheduledMaintenance: linodesData
       ? linodesData.some(eachLinode => !!eachLinode.maintenance)
       : false,
