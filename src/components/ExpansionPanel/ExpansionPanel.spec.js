@@ -130,6 +130,7 @@ describe('Expansion Panel Suite', () => {
     });
 
     it('should collapse on click', () => {
+      expandAssertGridItem();
       expandAssertGridItem(true);
     });
   });
