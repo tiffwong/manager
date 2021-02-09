@@ -11,7 +11,7 @@ export const EntityTransfersCreate: React.FC<Props> = props => {
       <DocumentTitleSegment segment="Create a Transfer" />
       <Breadcrumb
         pathname={location.pathname}
-        labelTitle="Create a Transfer"
+        labelTitle="Make a Transfer"
         labelOptions={{ noCap: true }}
         crumbOverrides={[
           {

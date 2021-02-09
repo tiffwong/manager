@@ -6,6 +6,7 @@ export const EntityTransfersLanding: React.FC<{}> = _ => {
   return (
     <>
       <DocumentTitleSegment segment="Transfers" />
+      {/* Added for testing purposes, remove later */}
       <Breadcrumb pathname={location.pathname} labelTitle="Transfers" />
     </>
   );
